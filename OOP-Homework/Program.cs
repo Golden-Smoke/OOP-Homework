@@ -1,5 +1,6 @@
 ﻿using OOP_Homework.classes;
 using System;
+using System.Collections.Generic;
 
 namespace OOP_Homework
 {
@@ -7,36 +8,69 @@ namespace OOP_Homework
     {
         static void Main(string[] args)
         {
-            Coach coach1 = new Coach("Igor",12);
-            Team team1 = new Team(coach1);
+            Team team1 = new Team("Botev-Plovdiv",new Coach("Ivan",50),new List<FootballPlayer> { 
+                new FootballPlayer("Stoqn",20,12,165),
+                new FootballPlayer("Pesho",20,12,165),
+                new FootballPlayer("Stilqn",20,12,165),
+                new FootballPlayer("Igor",20,12,165),
+                new FootballPlayer("Minko",20,12,165),
+                new FootballPlayer("Pavel",20,12,165),
+                new FootballPlayer("Miroslav",20,12,165),
+                new FootballPlayer("Dobri",20,12,165),
+                new FootballPlayer("Velin",20,12,165),
+                new FootballPlayer("Vasil",20,12,165),
+                new FootballPlayer("Stamat",20,12,165)
+            });
 
-            team1.players.Add(new FootballPlayer("Ivan",15,10,162));
-            team1.players.Add(new FootballPlayer("Stoqn",25, 5, 162));
-            team1.players.Add(new FootballPlayer("Ivan", 15, 45, 162));
-            team1.players.Add(new FootballPlayer("Ivan", 15, 31, 162));
-            team1.players.Add(new FootballPlayer("Ivan", 15, 40, 162));
-            team1.players.Add(new FootballPlayer("Ivan", 15, 5, 162));
-            team1.players.Add(new FootballPlayer("Ivan", 15, 10, 162));
-            team1.players.Add(new FootballPlayer("Ivan", 15, 14, 162));
-            team1.players.Add(new FootballPlayer("Ivan", 15, 16, 162));
-            team1.players.Add(new FootballPlayer("Ivan", 15, 30, 162));
-            team1.players.Add(new FootballPlayer("Ivan", 15, 20, 162));
+            Team team2 = new Team("Vallhala",new Coach("Vladimir", 40), new List<FootballPlayer> {
+                new FootballPlayer("Gencho",20,12,165),
+                new FootballPlayer("Pesho",20,12,165),
+                new FootballPlayer("Gosho",20,12,165),
+                new FootballPlayer("Igor",20,12,165),
+                new FootballPlayer("Plamen",20,12,165),
+                new FootballPlayer("Iliq",20,12,165),
+                new FootballPlayer("Miroslav",20,12,165),
+                new FootballPlayer("Pancho",20,12,165),
+                new FootballPlayer("Bojidar",20,12,165),
+                new FootballPlayer("Vasil",20,12,165),
+                new FootballPlayer("Stamat",20,12,165)
+            });
 
-            Console.WriteLine(team1.AverageAgeOfPlayers());
-            Coach coach2 = new Coach("Petar", 45);
-            Team team2 = new Team(coach2);
+            Game game = new Game(team1,team2);
+            game.Match();
+            //for (int i = 1; i <= 2; i++)
+            //{
+            //    for (int j = 1; j < 12; j++)
+            //    {
+            //        Console.WriteLine($"Enter {j} - player from Team {i} (name,age,number and height)");
+            //        string[] player = Console.ReadLine().Split(',');
+            //        string playerName = player[0];
+            //        int playerAge = int.Parse(player[1]);
+            //        int playerNumber = int.Parse(player[2]);
+            //        int playerHeight = int.Parse(player[3]);
+            //        FootballPlayer footballPlayer = new FootballPlayer(playerName, playerAge, playerNumber, playerHeight);
+            //        if(i == 1)
+            //        {
+            //            team1.players.Add(footballPlayer);
+            //        }
+            //        else
+            //        {
+            //            team2.players.Add(footballPlayer);
+            //        }
+            //    }
+            //}
 
-            team2.players.Add(new FootballPlayer("Ivan", 15, 10, 162));
-            team2.players.Add(new FootballPlayer("Stoqn", 25, 5, 162));
-            team2.players.Add(new FootballPlayer("Ivan", 15, 10, 162));
-            team2.players.Add(new FootballPlayer("Ivan", 15, 10, 162));
-            team2.players.Add(new FootballPlayer("Ivan", 15, 10, 162));
-            team2.players.Add(new FootballPlayer("Ivan", 15, 10, 162));
-            team2.players.Add(new FootballPlayer("Ivan", 15, 10, 162));
-            team2.players.Add(new FootballPlayer("Ivan", 15, 10, 162));
-            team2.players.Add(new FootballPlayer("Ivan", 15, 10, 162));
-            team2.players.Add(new FootballPlayer("Ivan", 15, 10, 162));
-            team2.players.Add(new FootballPlayer("Ivan", 15, 10, 162));
+            //foreach (var item in team1.players)
+            //{
+            //    Console.WriteLine(item.Name + " " + item.Age + " " + item.Number + " " + item.Height);
+            //    Console.WriteLine();
+            //}
+            //foreach (var item in team2.players)
+            //{
+            //    Console.WriteLine(item.Name + " " + item.Age + " " + item.Number + " " + item.Height);
+            //    Console.WriteLine();
+            //}
+
         }
     }
 }
