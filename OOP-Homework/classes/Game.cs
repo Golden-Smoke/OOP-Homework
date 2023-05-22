@@ -7,15 +7,16 @@ namespace OOP_Homework.classes
 {
     class Game
     {
-        private Team team1 { get; set; }
-        private Team team2 { get; set; }
-        public Referee referee { get; set; }
+        private Team Team1 { get; set; }
+        private Team Team2 { get; set; }
+        public List<Referee> Referees { get;private set; }
         public Team Winner { get;private set; }
 
-        public Game(Team team1, Team team2)
+        public Game(Team team1, Team team2,List<Referee> referees)
         {
-            this.team1 = team1;
-            this.team2 = team2;
+            Team1 = team1;
+            Team2 = team2;
+            Referees = referees; 
         }
 
         bool isTeamOneTurn = true;
@@ -34,64 +35,63 @@ namespace OOP_Homework.classes
         }
         public void Match()
         {
+            Greeting();
             while (true)
             {
                 timer++;
                 if(timer > 90) {
                     if(team1Goals.Count > team2Goals.Count)
                     {
-                        Winner = team1;
+                        Winner = Team1;
                     }
                     else if(team1Goals.Count < team2Goals.Count)
                     {
-                        Winner = team2;
+                        Winner = Team2;
                     }
                    break; 
                 }
 
-                if (isTeamOneTurn)
-                {
-                    int randomPlayer = new Random().Next(0,team1.Players.Count - 1);
-                    FootballPlayer scorePlayer = team1.Players[randomPlayer];
-                    if (isScoredGoal(20))
-                    {
-                        Goal scoredGoal = new Goal(timer,scorePlayer);
-                        Console.WriteLine($"For {team1.TeamName},{scoredGoal.Player.Name} scored a goal at {scoredGoal.Minute} minute!");
-                        team1Goals.Add(scoredGoal);
-                    }
-                }
+                if (isTeamOneTurn) AttackForScore(Team1, team1Goals);
+                if (!isTeamOneTurn) AttackForScore(Team2, team2Goals);
 
-                if (!isTeamOneTurn)
-                {
-                    int randomPlayer = new Random().Next(0, team2.Players.Count - 1);
-                    FootballPlayer scorePlayer = team2.Players[randomPlayer];
-                    if (isScoredGoal(20))
-                    {
-                        Goal scoredGoal = new Goal(timer, scorePlayer);
-                        Console.WriteLine($"For {team2.TeamName},{scoredGoal.Player.Name} scored a goal at {scoredGoal.Minute} minute!");
-                        team2Goals.Add(scoredGoal);
-                    }
-                    
-                }
                 isTeamOneTurn = !isTeamOneTurn;
                 Thread.Sleep(400);
             }
             GameResult();
         }
-
+        void AttackForScore(Team team,List<Goal> teamGoals)
+        {
+            int randomPlayer = new Random().Next(0, team.Players.Count - 1);
+            FootballPlayer scorePlayer = team.Players[randomPlayer];
+            if (isScoredGoal(7))
+            {
+                Goal scoredGoal = new Goal(timer, scorePlayer);
+                Console.WriteLine($"For {team.TeamName}, {scoredGoal.Player.Name} scored a goal at {scoredGoal.Minute} minute!");
+                teamGoals.Add(scoredGoal);
+            }
+        }
         void Greeting()
         {
-            Console.WriteLine("Welcome everybody! Today we are going to witness a match between");
+            Console.WriteLine($"Welcome everybody! Today we are going to witness a match between " +
+                $"{Team1.TeamName} and {Team2.TeamName}.\n Coach of {Team1.TeamName} : {Team1.Coach.Name}" +
+                $"\n Coach of {Team2.TeamName} : {Team2.Coach.Name} \n Referee : {Referees[0].Name} \n" +
+                $" Side-Referee : {Referees[1].Name}");
+            Console.WriteLine();
+            Thread.Sleep(6000);
+            Console.WriteLine("Let the match begin!");
+            Console.WriteLine();
+            Thread.Sleep(2000);
         }
         void GameResult()
         {
+            Console.WriteLine();
             if(team1Goals.Count > team2Goals.Count)
             {
-                Console.WriteLine($"The winner is {team1.TeamName} with score {team1Goals.Count}:{team2Goals.Count}");
+                Console.WriteLine($"The winner is {Team1.TeamName} with score {team1Goals.Count}:{team2Goals.Count}");
             }
             else if(team1Goals.Count < team2Goals.Count)
             {
-                Console.WriteLine($"The winner is {team2.TeamName} with score {team1Goals.Count}:{team2Goals.Count}");
+                Console.WriteLine($"The winner is {Team2.TeamName} with score {team1Goals.Count}:{team2Goals.Count}");
             }
             else
             {
